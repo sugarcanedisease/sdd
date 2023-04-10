@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %} Sugarcane disease detector | Sugarcane Diseases Prediction System  {% endblock title%}
+
+{% block body%}
+
+<div class="container-fluid banner py-5 px-0 mb-5" data-parallax="scroll" style="background: rgb(255, 255, 255)">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s" style="margin : auto;background: rgb(255, 255, 255);padding : 30px 30px ; ">
+                    <div class="row g-4 align-items-center">
+                        <!-- <div class="col-sm-4">
+                            <img class="img-fluid rounded" src="img/banner-1.jpg" alt="">
+                        </div> -->
+                        <div class="">
+                            <br>
+                            <h2 class="col-12  mb-3">Sugarcane Diseases Detector</h2>
+                            <!-- <p class="text-white mb-4">Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+                            <a class="btn btn-secondary rounded-pill py-2 px-4" href="">Read More</a> -->
+                            <form>
+                                <div class="row g-3">
+                                    
+                                    <div class="col-12">
+                                        <div class="formFileLg">
+                                            <input type="file" class="form-control" id="subject" placeholder="Subject">
+                                            <!-- <label for="subject">Subject</label> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </form>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="row p-auto m-auto align-items-center">
+
+                    <div class="col">
+                        <img src="/static/img/Test/Original Image.png" alt="">
+                    </div>
+                    <div class="col">
+                         <img src="/static/img/Test/Origianl_image (Histogram).png" alt="">
+                    </div>
+                </div>
+                <!--<div class="col-12">
+                    <center>
+                        <a class="btn btn-outline-primary x py-3 px-5" href="after_proccess.html" >Process</a>
+                    </center>
+                </div>-->
+
+                <div class="row p-auto m-auto align-items-center">
+
+                    <div class="col">
+                        <img src="/static/img/Test/GrayScale.png" alt="">
+                    </div>
+                    <div class="col">
+                         <img src="/static/img/Test/GrayScale (Histogram).png" alt="">
+                    </div>
+                </div>
+                <div class="row p-auto m-auto align-items-center">
+
+                    <div class="col">
+                        <img src="/static/img/Test/EqualizedImage.png" alt="">
+                    </div>
+                    <div class="col">
+                         <img src="/static/img/Test/Equalized_image (Histogram).png" alt="">
+                    </div>
+                </div>
+                <br><br>    
+                <div class="row p-auto m-auto align-items-center">
+
+                    <div class="col">
+                        <h3>Binary Image</h3>
+                        <img src="/static/img/Test/binary image.png" width="268" alt="">
+                    </div>
+                    <div class="col">
+                        <h3>Masked Image</h3>
+
+                         <img src="/static/img/Test/masked image.png" width="268" alt="">
+                    </div>
+                    <div class="col">
+                        <h3>Morphology Image</h3>
+
+                        <img src="/static/img/Test/morphology.png" width="268"  alt="">
+                   </div>
+                </div>
+
+                <!-- <div class="col-12">
+                    <center>
+                        <a class="btn btn-outline-primary x py-3 px-5" href="after_proccess.html" >Process</a>
+                    </center>
+                </div> -->
+            </div>
+            
+        </div>
+    </div>
+   
+
+
+
+{%endblock body%}

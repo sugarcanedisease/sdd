@@ -1,0 +1,5 @@
+pwd
+
+git clone https://github.com/smuhabdullah/Sugarcane_disease_detector
+
+mkvirtualenv --python=/usr/bin/python3.8 venv

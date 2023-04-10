@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock title%}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <!-- <link href="/static/img/favicon.ico" rel="icon"> -->
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Open+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/static/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/static/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/static/css/style.css" rel="stylesheet">
+
+    <!-- Project Javascript -->
+    <script src="/static/js/image.js"></script>
+
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class=" show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Topbar Start -->
+    <!-- <div class="container-fluid  px-0">
+        <div class="row g-0 d-none d-lg-flex">
+            <div class="col-lg-6 ps-5 text-start">
+                <div class="h-100 d-inline-flex align-items-center text-dark">
+                    <span>Follow Us:</span>
+                    <a class="btn btn-link text-dark" href=""><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-link text-dark" href=""><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-link text-dark" href=""><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-link text-dark" href=""><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-end">
+                <div class="h-100  d-inline-flex align-items-center text-dark py-2 px-4">
+                    <span class="me-2 fw-semi-bold"><i class="fa fa-phone-alt me-2"></i>Call Us:</span>
+                    <span>+92 3421129003</span>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top px-4  px-lg-5" style="background: rgb(16 52 19)">
+        <a href="/" class="navbar-brand d-flex align-items-center" style="padding-left: 3em;">
+            {% comment %} <img src="/static/img/logo.png" width="70"  alt=""> {% endcomment %}
+        <h3 class="m-0 text-light" style="padding-left: 1em;">SDD</h3>
+
+        </a>
+        <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="/" class="nav-item nav-link text-light active">Home</a>
+                <a href="/prediction" class="nav-item nav-link text-light">Prediction</a>
+                <a href="/about" class="nav-item nav-link text-light">About</a>
+                <a href="/service" class="nav-item nav-link text-light">Services</a>
+                <a href="/contact" class="nav-item nav-link text-light">Contact</a>
+
+            
+                    
+            </div>
+           
+            
+            
+            {% if  authenticate %}
+            {% comment %} <span style="color: white; margin-right: 20px;"> Hello, {{request.user}} </span> {% endcomment %}
+            <a type="button" class="btn btn-outline-danger" href="{% url 'logout_Page' %}">Log Out</a>
+          {% else %}
+          <a class="btn  my-2 my-sm-0 text-light" href="{% url 'register' %}">Login</a>
+            <a class="btn btn-outline-light my-2 my-sm-0 ghost" href="{% url 'register' %}" 
+            id="signUp">SignUp</a>
+
+            {% endif %}
+                
+
+            <!-- <div class="border-start ps-4 d-none d-lg-block">
+                <button type="button" class="btn btn-sm p-0"><i class="fa fa-search"></i></button>
+            </div> -->
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+    {% block body%}{%endblock body%}
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer mt-5 py-5 wow fadeIn" style="background: rgb(16 52 19)" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="text-white mb-4">Our Office</h5>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Karachi, Pakistan</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+92 3421129003</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>asdpts@gmail.com</p>
+                    <div class="d-flex pt-3">
+                        <a class="btn btn-square btn-outline-primary rounded-circle me-2" href=""><i
+                                class="fab fa-twitter"></i></a>
+                        <a class="btn btn-square btn-outline-primary rounded-circle me-2" href=""><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-square btn-outline-primary rounded-circle me-2" href=""><i
+                                class="fab fa-youtube"></i></a>
+                        <a class="btn btn-square btn-outline-primary rounded-circle me-2" href=""><i
+                                class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="text-white mb-4">Quick Links</h5>
+                    <a class="btn btn-link" href="">About Us</a>
+                    <a class="btn btn-link" href="">Contact Us</a>
+                    <a class="btn btn-link" href="">Our Services</a>
+                    <a class="btn btn-link" href="">Terms & Condition</a>
+                    <a class="btn btn-link" href="">Support</a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="text-white mb-4">Newsletter</h5>
+                    <p>An automated disease detection system is needed to help distinguish plant
+                        infections by the plant's appearance and visual manifestations could be of incredible
+                        assistance
+                        to
+                        novices in the horticultural cycle..</p>
+                    <div class="position-relative w-100">
+                        <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text"
+                            placeholder="Your email">
+                        <button type="button"
+                            class="btn btn-outline-light py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Copyright Start -->
+    <div class="container-fluid text-body copyright py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    &copy; <a class="fw-semi-bold" href="#">Sdd</a>, All Right Reserved.
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Copyright End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
+            class="bi bi-arrow-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/lib/wow/wow.min.js"></script>
+    <script src="/static/lib/easing/easing.min.js"></script>
+    <script src="/static/lib/waypoints/waypoints.min.js"></script>
+    <script src="/static/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/static/lib/counterup/counterup.min.js"></script>
+    <script src="/static/lib/parallax/parallax.min.js"></script>
+    <script src="/static/lib/lightbox/js/lightbox.min.js"></script>
+    
+    <script src="/static/canvasjs.min.js"></script>
+
+    <script>
+
+        (function ($) {
+            "use strict";
+
+            // Spinner
+            var spinner = function () {
+                setTimeout(function () {
+                    if ($('#spinner').length > 0) {
+                        $('#spinner').removeClass('show');
+                    }
+                }, 1);
+            };
+            spinner();
+
+            // Initiate the wowjs
+            new WOW().init();
+
+            // Sticky Navbar
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 300) {
+                    $('.sticky-top').addClass('shadow-sm').css('top', '0px');
+                } else {
+                    $('.sticky-top').removeClass('shadow-sm').css('top', '-100px');
+                }
+            });
+
+            // Back to top button
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 300) {
+                    $('.back-to-top').fadeIn('slow');
+                } else {
+                    $('.back-to-top').fadeOut('slow');
+                }
+            });
+            $('.back-to-top').click(function () {
+                $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
+                return false;
+            });
+
+            // Facts counter
+            $('[data-toggle="counter-up"]').counterUp({
+                delay: 10,
+                time: 2000
+            });
+
+            // Testimonials carousel
+            $(".testimonial-carousel").owlCarousel({
+                autoplay: true,
+                smartSpeed: 1000,
+                items: 1,
+                dots: false,
+                loop: true,
+                nav: true,
+                navText: [
+                    '<i class="bi bi-chevron-left"></i>',
+                    '<i class="bi bi-chevron-right"></i>'
+                ]
+            });
+        })(jQuery);
+
+
+        function progress() {
+            $('.progress_container').css('visibility', 'visible');
+        }
+
+    </script>
+    <script>
+        window.onload = function () {
+            var chart = new CanvasJS.Chart("piechart", {
+                exportEnabled: true,
+                animationEnabled: true,
+    
+                data: [{
+                    type: "pie",
+                    legendText: "{label}",
+                    yValueFormatString: "#,###\"%\"",
+                    indexLabel: "{label} ({y})",
+                    dataPoints: {{ Disease_classification | safe }},
+              }]
+            });
+        chart.render();
+        }
+    </script>
+</body>
+
+</html>

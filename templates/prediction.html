@@ -1,0 +1,291 @@
+{% extends 'base.html' %} {% block title %} Sugarcane disease detector |
+Sugarcane Diseases Prediction System {% endblock title%} {% block body%}
+<div
+  class="progress_container"
+  style="
+    visibility: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(36, 36, 36, 0.8);
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    filter: blur(45%);
+  "
+>
+  <div
+    class="d-flex justify-content-center"
+    style="top: 50%; margin: 0px 35%; width: 30%; position: relative"
+  >
+    <div
+      id=""
+      class="spinner-border text-success"
+      style="width: 5rem; height: 5rem"
+      role="status"
+    ></div>
+  </div>
+</div>
+
+<div
+  class="container-fluid banner py-5 px-0 mb-5"
+  data-parallax="scroll"
+  style="background: rgb(255, 255, 255)"
+>
+  <div class="container py-5">
+    {% if uploaded %}
+    <div class="row g-5">
+      <div
+        class="col-lg-12 wow fadeIn"
+        data-wow-delay="0.3s"
+        style="margin: auto; background: rgb(255, 255, 255); padding: 30px 30px"
+      >
+        <div class="row g-4 align-items-center">
+          <div class="col-6">
+            <h2 class="mb-3">Sugarcane Diseases Detector</h2>
+            <p style="text-align: justify">
+              Fast and Accurate Diagnosis for Healthier Crops. Our AI-powered
+              technology can quickly detect and identify diseases in sugarcane
+              crops, helping farmers take proactive measures to protect their
+              harvests and increase yields. Try our easy-to-use platform today
+              and experience the benefits of cutting-edge agricultural
+              innovation.
+            </p>
+          </div>
+          <div class="col-6">
+            <form
+              enctype="multipart/form-data"
+              method="post"
+              action="/uploaded"
+            >
+              {% csrf_token %}
+              <div class="row g-3">
+                <center>
+                  <div class="col-6">
+                    <div class="formFileLg">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        class="form-control"
+                        id="subject original_image"
+                        name="original_image"
+                        required
+                        placeholder="Subject"
+                        onchange="showPreview(event);"
+                        id="file-ip-1"
+                      />
+                    </div>
+                  </div>
+                  <br />
+                  <div class="preview col-6 pb-3">
+                    <img
+                      id="file-ip-1-preview"
+                      class="img-fluid rounded"
+                      width="330"
+                    />
+                  </div>
+                  <div id="process" style="display: none">
+                    <button
+                      class="btn btn-outline-primary py-3 px-5 mt-1"
+                      onclick="progress()"
+                      type="submit"
+                    >
+                      Extract Features
+                    </button>
+                  </div>
+                </center>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %} {% if preprocess_url %}
+  <div class="row p-auto m-auto align-items-center container">
+    <h3>Sugarcane Disease Detector</h3>
+    <h4>{{found_disease}} Disease Detected</h4>
+    <h5>Suggested Treatment</h5>
+    <p>{{Treatment|linebreaksbr }}</p>
+    
+    <center>
+      <br/>
+      <br/>
+    <h2>Disease Classification</h2>
+    <div id="piechart" style="width: 100%; height: 360px;"></div>
+      <br />
+      <br />
+      <h2>Image Analysis</h2>
+      <br />
+
+      <!--Origianl Image and Removed Background image -->
+      <div class="row align-items-center">
+        <div class="col-lg-6 pb-5">
+          <h3>Original Image</h3>
+          <img
+            width="330"
+            height="500"
+            src="/media/{{preprocess_url}}"
+            class="img-fluid rounded"
+          />
+        </div>
+        <div class="col-lg-6 pb-5">
+          <h3>Background removed</h3>
+          <img
+            width="330"
+            height="500"
+            src="/media/Removed_bg_Images/{{preprocess_url}}"
+            class="img-fluid rounded"
+          />
+        </div>
+      </div>
+
+      <!-- GrayScale -->
+      <div class="row align-items-center">
+        <div class="col-lg-6 pb-5">
+          <h3>GrayScale Image</h3>
+          <img
+            width="330"
+            src="/media/GrayScale_Images/{{preprocess_url}}"
+            class="img-fluid rounded"
+          />
+        </div>
+        <div class="col-lg-6 pb-5">
+          <h3>Histogram</h3>
+          <img
+            width=""
+            src="/media/GrayScale_Histogram/1.png"
+            class="img-fluid rounded"
+          />
+        </div>
+      </div>
+
+      <!-- Equalized -->
+      <div class="row align-items-center">
+        <div class="col-lg-6 pb-5">
+          <h3>Equalized Image</h3>
+          <img
+            width="330"
+            src="/media/Equalized_Images/{{preprocess_url}}"
+            class="img-fluid rounded"
+          />
+        </div>
+        <div class="col-lg-6 pb-5">
+          <h3>Histogram</h3>
+          <img
+            width=""
+            src="/media/Equalized_Histogram/2.png"
+            class="img-fluid rounded"
+          />
+        </div>
+      </div>
+      <div class="row align-items-center">
+        <div class="col-lg-6 pb-5">
+          <h3>Binary Image</h3>
+          <img
+            width="330"
+            src="/media/binary_Images/{{preprocess_url}}"
+            class="img-fluid rounded"
+          />
+        </div>
+        <div class="col-lg-6 pb-5">
+          <h3>Morphological Image</h3>
+          <img
+            width="330"
+            src="/media/morphological_images/{{preprocess_url}}"
+            class="img-fluid rounded"
+          />
+        </div>
+      </div>
+
+      <!-- draw contour or spoton original and black image-->
+      <div class="row align-items-center">
+        <div class="col-lg-6 pb-5">
+          <h3>Spots on original Image</h3>
+          <img
+            width="330"
+            src="/media/spot_on_org_images/{{preprocess_url}}"
+            class="img-fluid rounded"
+          />
+        </div>
+        <div class="col-lg-6 pb-5">
+          <h3>Spots on black background</h3>
+          <img
+            width="330"
+            src="/media/spot_on_black_images/{{preprocess_url}}"
+            class="img-fluid rounded"
+          />
+        </div>
+      </div>
+    </center>
+    <div class="row align-center">
+      <div style="display: none" id="displaytable">
+        <table class="table table-hover">
+          <h3>Extracted Features</h3>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td colspan="2">Severety</td>
+              <td colspan="2">{{Severe}}</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td colspan="2">Total Number of Spots</td>
+              <td colspan="2">{{Num_of_contour}}</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colspan="2">Leaf Area</td>
+              <td colspan="2">{{leaf_Area}} cm<sup>2</sup></td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td colspan="2">Infected Region Area</td>
+              <td colspan="2">{{infected_area}} cm<sup>2</sup></td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td colspan="2">Ratio</td>
+              <td colspan="2">{{Ratio}} %</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <center>
+        <div class="row">
+          <input
+            type="button"
+            class="btn btn-outline-primary py-3 col px-5 col-sm m-3"
+            id="Detail"
+            onclick="myfunction();"
+            value="Show Details"
+          />
+          <a class="btn btn-primary py-3 px-5 col col-sm-3 m-3" href="/uploaded"
+            >Return Back</a
+          >
+          <a
+            class="btn btn-primary py-3 px-5 col col-sm m-3"
+            onclick="window.print()"
+            style="cursor: pointer"
+            >Download Report</a
+          >
+        </div>
+      </center>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  function myfunction() {
+    if (document.getElementById("displaytable").style.display === "none") {
+      document.getElementById("displaytable").style.display = "table";
+      document.getElementById("Detail").value = "Hide Details";
+    } else {
+      document.getElementById("displaytable").style.display = "none";
+      document.getElementById("Detail").value = "Show Details";
+    }
+  }
+</script>
+
+{%endblock body%}
